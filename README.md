@@ -32,7 +32,7 @@ O projeto foi elaborado em equipe, passando por todas as etapas de levantamento 
 `index.html`: Estrutura principal da aplicação <br>
 `style.css`: Estilos globais <br>
 `script.js`: Lógica da aplicação (API + interatividade) <br>
-`assets/`: Imagens, ícones e recursos visuais
+`assets/`: Pasta que guarda os arquivos .html, .css e .js
 
 ## 🧑‍💻 Equipe de Desenvolvimento
 
