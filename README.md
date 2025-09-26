@@ -11,6 +11,7 @@ O projeto foi elaborado em equipe, passando por todas as etapas de levantamento 
 - **Protótipo de baixa fidelidade:** [Balsamiq](https://balsamiq.com/)
 - **Protótipo de alta fidelidade:** [Figma](https://figma.com/)
 - **Implementação:** HTML, CSS e JavaScript
+- **Versionamento de código:** Git e GitHub
 - **Integração com API:** [PokéAPI](https://pokeapi.co/)
 
 ## 🚀 Tecnologias Utilizadas
