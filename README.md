@@ -6,6 +6,7 @@ O projeto foi elaborado em equipe, passando por todas as etapas de levantamento 
 ## 📑 Etapas do Desenvolvimento
 
 - **Organização da equipe:** [Trello](https://trello.com/pt-BR?campaign=19269516466&adgroup=148159506607&targetid=kwd-3609071522&matchtype=e&network=g&device=c&device_model=&creative=641463051732&keyword=trello&placement=&target=&ds_eid=700000001557344&ds_e1=GOOGLE&gad_source=1&gad_campaignid=19269516466&gbraid=0AAAAADMO9Yh_2s_CZWfKXT3O60r1HXI3U&gclid=CjwKCAjw89jGBhB0EiwA2o1On4EvlYtPeimtW5DHRGvAVxvLp82SORRz4YCI7vORizDm-n3RUnlt7BoCF-0QAvD_BwE)
+- **Metodologias ágeis:** Scrum e Kanban
 - **Levantamento de requisitos:** [Google Docs](https://docs.google.com/)
 - **Diagrama de caso de uso:** [Miro](https://miro.com/)
 - **Protótipo de baixa fidelidade:** [Balsamiq](https://balsamiq.com/)
