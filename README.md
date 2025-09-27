@@ -1,4 +1,4 @@
-# 🌩️ Pokéland | Projeto Integrador de Extensão
+# 🌩️ Pokéland
 
 Este repositório contém o desenvolvimento de uma aplicação front-end que consome a **[PokéAPI](https://pokeapi.co/)** para exibir informações sobre Pokémon de forma interativa e amigável ao usuário.
 O projeto foi elaborado em equipe, passando por todas as etapas de levantamento de requisitos, prototipação e implementação.
