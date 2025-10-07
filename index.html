@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Pokédex completa com todos os Pokémons da primeira geração. Busque, explore e descubra informações detalhadas.">
+    <meta name="keywords" content="pokémon, pokédex, pokedex, pokemon, jogos">
+    <meta name="author"
+        content="Bruno Gabriel Franceschini dos Santos, Eduardo Florenciano dos Santos, Lucas Eduardo Zarza de Barros, Vittor Eduardo Flores Moreno">
+    <meta property="og:title" content="Pokéland - Pokédex Completa">
+    <meta property="og:description" content="Explore todos os Pokémons da primeira geração">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Pokedex</title>
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="container">
+            <!-- Logo: Pokéland -->
+            <figure class="logo">
+                <img src="assets/img/" alt="Pokéland Logo">
+            </figure>
+
+            <!-- Links de navegação: LANDING PAGE, LENDÁRIOS e TREINADORES -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#" class="nav-link">LANDING PAGE</a></li>
+                    <li><a href="#" class="nav-link">LENDÁRIOS</a></li>
+                    <li><a href="#" class="nav-link">TREINADORES</a></li>
+                </ul>
+            </nav>
+
+            <!-- Menu hamburger -->
+            <button class="menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Parte principal -->
+    <main>
+        <!-- Barra de pesquisa -->
+        <div class="container">
+            <div class="search-container">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20">
+                    <path d="M9 2a7 7 0 015.938 10.938l4.562 4.562-1.414 1.414-4.562-4.562A7 7 0 119 2z" />
+                </svg>
+
+                <input type="search" name="pesquisar" id="searchPokemon" placeholder="ENCONTRE SEU POKÉMON"
+                    aria-label="Pesquisar Pokémon">
+            </div>
+        </div>
+
+        <!-- Seção de cards -->
+        <section class="pokeContainer" id="pokeContainer" role="list">
+
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2025 Pokéland. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
