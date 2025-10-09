@@ -55,20 +55,101 @@ function getTypeColor(types) {
     return typeColors[primaryType] || typeColors.normal;
 }
 
+// Exibe as estatísticas do pokémon
+function showPokemonDetails(pokemon) {
+    const { id, name, types, height, weight, abilities, stats } = pokemon;
+
+    // Formata os tipos
+    const typesList = types.map(t => {
+        const typeName = capitalize(t.type.name);
+        const color = typeColors[t.type.name] || typeColors.normal;
+        return `<span class="type-badge" style="background-color: ${color}">${typeName}</span>`;
+    }).join('');
+
+    const abilitiesList = abilities
+        .map(a => capitalize(a.ability.name.replace('-', ' ')))
+        .join(', ');
+
+    // Mostra as estatísticas
+    const statsHTML = stats.map(stat => `
+        <div class="stat-item">
+            <span class="stat-name">${capitalize(stat.stat.name)}:</span>
+            <span class="stat-value">${stat.base_stat}</span>
+            <div class="stat-bar">
+                <div class="stat-fill" style="width: ${(stat.base_stat / 255) * 100}%"></div>
+            </div>
+        </div>
+        `).join('');
+
+    // Cria o modal
+    const modal = document.createElement('div');
+    modal.classList.add('modal-overlay');
+    modal.innerHTML = `
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Fechar">&times;</button>
+            <div class="modal-header">
+                <img src="${pokemon.sprites.other['official-artwork'].front_default}" 
+                     alt="${capitalize(name)}">
+                <h2>${capitalize(name)}</h2>
+                <span class="modal-number">${formatPokemonNumber(id)}</span>
+            </div>
+            <div class="modal-body">
+                <div class="detail-group">
+                    <strong>Tipo:</strong> ${typesList}
+                </div>
+                <div class="detail-group">
+                    <strong>Altura:</strong> ${(height / 10).toFixed(1)}m
+                </div>
+                <div class="detail-group">
+                    <strong>Peso:</strong> ${(weight / 10).toFixed(1)}kg
+                </div>
+                <div class="detail-group">
+                    <strong>Habilidades:</strong> ${abilitiesList}
+                </div>
+                <div class="stats-container">
+                    <h3>Estatísticas Base</h3>
+                    ${statsHTML}
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Fecha o modal ao clicar no X ou fora
+    modal.querySelector('.modal-close').addEventListener('click', () => {
+        modal.remove();
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    })
+
+    // Fecha com ESC
+    document.addEventListener('keydown', function escClose(e) {
+        if (e.key === 'Escape') {
+            modal.remove();
+            document.removeEventListener('keydown', escClose);
+        }
+    });
+}
+
 // Busca dados da espécie para obter descrição
 async function getPokemonSpecies(id) {
     try {
         const response = await fetch(`${CONFIG.apiBaseUrl}/pokemon-species/${id}`);
         if (!response.ok) throw new Error('Espécie não encontrada');
 
-        const data = await response.json();
+        const species = await response.json();
 
-        // Busca descrição em português ou inglês
-        const flavorText = data.flavor_text_entries.find(
+        // Pega a descrição em português
+        const flavorText = species.flavor_text_entries.find(
             entry => entry.language.name === 'pt-BR' || entry.language.name === 'en'
         );
 
-        return flavorText ? flavorText.flavor_text.replace(/\f/g, ' ') : 'Pokémon misterioso.';
+        return flavorText?.flavor_text.replace(/\f/g, ' ') || 'Informação não disponível.';
 
     } catch (error) {
         console.error('Erro ao buscar espécie:', error);
@@ -100,7 +181,7 @@ async function fetchPokemon(id) {
     }
 }
 
-// Busca múltiplos pokémons em paralelo (muito mais rápido!)
+// Busca múltiplos pokémons em paralelo (muito mais rápido)
 async function fetchPokemonBatch(start, end) {
     const promises = [];
 
@@ -114,17 +195,13 @@ async function fetchPokemonBatch(start, end) {
 
 // Cria o HTML do card dos pokémons
 function createPokemonCard(pokemon) {
-    const { id, name, types, sprites, description } = pokemon;
+    const { id, name, types, sprites } = pokemon;
 
     const formattedName = capitalize(name);
     const formattedNumber = formatPokemonNumber(id);
     const color = getTypeColor(types);
     const imageUrl = sprites.other['official-artwork'].front_default || sprites.front_default;
 
-    // Descrição curta (primeiras 50 caracteres)
-    const shortDescription = description && description.length > 60
-        ? description.substring(0, 60) + '...'
-        : description || 'Descrição não disponível.';
 
     const card = document.createElement('article');
     card.classList.add('pokemon');
@@ -144,10 +221,11 @@ function createPokemonCard(pokemon) {
             <div class="info">
                 <div class="info-header">
                     <span class="number">${formattedNumber}</span>
-                    <div class="info-icon">i</div>
+                    <div class="info-icon">
+                        <img src="assets/images/favicon.png" alt="Salvar pokémon">
+                    </div>
                 </div>
                 <h3 class="name">${formattedName}</h3>
-                <p class="description">${shortDescription}</p>
                 <button class="btn-more" aria-label="Ver mais sobre ${formattedName}">
                     VER MAIS
                 </button>
@@ -176,9 +254,15 @@ function renderPokemons(pokemons) {
     pokeContainer.innerHTML = '';
 
     if (pokemons.length === 0) {
-        pokeContainer.innerHTML = '<p class="no-results">Nenhum pokémon encontrado 😢</p>';
+        pokeContainer.innerHTML = '<p class="no-results" role=status>Nenhum pokémon encontrado 😢</p>';
         return;
     }
+
+    // Anuncia quantos resultados foram encontrados
+    const announcement = document.createElement('div');
+    announcement.className = 'sr-only'; // Screen reader only
+    announcement.textContent = `${pokemons.length} pokémons encontrados`;
+    pokeContainer.appendChild(announcement);
 
     // Adiciona cards
     const fragment = document.createDocumentFragment();
@@ -188,14 +272,6 @@ function renderPokemons(pokemons) {
     });
 
     pokeContainer.appendChild(fragment);
-}
-
-// Exibe detalhes do pokémon (modal - implementação futura)
-function showPokemonDetails(pokemon) {
-    console.log('Detalhes do Pokémon:', pokemon);
-
-    // Implementa modal com detalhes complexos
-    alert(`${capitalize(pokemon.name)}\n\n${pokemon.description}\n\nTipo: ${pokemon.types.map(t => capitalize(t.type.name)).join(', ')}`);
 }
 
 // Mostra indicador de carregamento
@@ -264,4 +340,13 @@ searchInput?.addEventListener('input', (e) => {
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
     loadAllPokemons();
+});
+
+// Menu Mobile Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const mainNav = document.querySelector('.main-nav');
+
+menuToggle?.addEventListener('click', () => {
+    mainNav.classList.toggle('active');
+    menuToggle.classList.toggle('active');
 });
