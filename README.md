@@ -1,4 +1,4 @@
-# 🌩️ Pokéland
+# 🎮 Pokéland - Pokédex Interativa
 
 Este repositório contém o desenvolvimento de uma aplicação front-end que consome a **[PokéAPI](https://pokeapi.co/)** para exibir informações sobre Pokémon de forma interativa e amigável ao usuário.
 O projeto foi elaborado em equipe, passando por todas as etapas de levantamento de requisitos, prototipação e implementação.
@@ -23,17 +23,18 @@ O projeto foi elaborado em equipe, passando por todas as etapas de levantamento 
 ![PokéAPI](https://img.shields.io/badge/PokéAPI-DC0A2D?style=for-the-badge&logo=pokemon&logoColor=fff)
 
 ## 🎯 Funcionalidades
-
-- Buscar Pokémon por nome ou ID;
-- Exibir imagem, nome, tipo(s) e outras informações do Pokémon;
-- Navegação simples e responsiva;
-- Interface baseada em protótipos validados no **Figma**.
+- 🔍 Busca por nome ou número
+- 📊 Detalhes completos (tipos, stats, habilidades)
+- 📱 100% Responsivo
+- ♿ Acessível (ARIA)
+- ⚡ Performance otimizada
 
 ## 📂 Estrutura do Projeto
+`assets/`: Pasta que guarda os arquivos de imagens, .html, .css e .js <br>
+`images/`: Pasta que guarda as imagens <br>
 `index.html`: Estrutura principal da aplicação <br>
 `style.css`: Estilos globais <br>
 `script.js`: Lógica da aplicação (API + interatividade) <br>
-`assets/`: Pasta que guarda os arquivos .html, .css e .js
 
 ## 🧑‍💻 Equipe de Desenvolvimento
 
